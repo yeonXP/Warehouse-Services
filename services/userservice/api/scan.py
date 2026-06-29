@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from services.scan_service import validate_barcode
+from services.product_service import get_product
 
 scan_bp = Blueprint("scan", __name__)
 
@@ -25,9 +26,16 @@ def scan():
             "error": message
         }), 400
 
-    # 지금은 WMS Server 연동 전이라 임시 응답 반환
+    
+    product = get_product(barcode)
+  
+    if product is None:
+        return jsonify({
+            "error": "상품을 찾을 수 없습니다."
+        }), 404
+
+
     return jsonify({
-        "message": "스캔 성공",
-        "barcode": barcode,
-        "next": "WMS Server로 서비스 요청 전달 예정"
-    })
+        "barcode" : barcode,
+        "product" : product
+        })
