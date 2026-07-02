@@ -8,7 +8,7 @@ def get_user_by_username(username):
     try:
         with conn.cursor() as cursor:
             sql = """
-                SELECT id, username, password, role
+                SELECT id, username, password, role, full_name
                 FROM users
                 WHERE username = %s
             """

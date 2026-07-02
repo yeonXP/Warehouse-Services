@@ -28,11 +28,13 @@ def login():
 
     # 로그인 사용자 정보 저장
     session["username"] = user["username"]
+    session["full_name"] = user["full_name"]
     session["role"] = user["role"]
 
     return jsonify({
         "message": "로그인 성공",
         "username": user["username"],
+        "full_name": user["full_name"],
         "role": user["role"]
     })
 

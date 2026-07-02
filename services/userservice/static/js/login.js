@@ -43,6 +43,7 @@ function login() {
 
 	// 로그인한 사용자 정보 저장
 	localStorage.setItem("username", data.username);
+	localStorage.setItem("full_name", data.full_name);
 	localStorage.setItem("role", data.role);
 
 	// 로그인 성공 Toast 저장

@@ -1,5 +1,5 @@
 from config.database import get_connection
-
+from flask import session
 
 def get_product(barcode):
     # barcode로 상품 1개 조회
@@ -57,7 +57,9 @@ def inbound_stock(barcode, quantity):
                 INSERT INTO history (barcode, type, quantity, worker)
                 VALUES (%s, 'IN', %s, %s)
             """
-            cursor.execute(history_sql, (barcode, quantity, "operator"))
+            
+            worker = session.get("full_name","unknown")
+            cursor.execute(history_sql, (barcode, quantity, worker))
 
             conn.commit()
 
@@ -97,7 +99,9 @@ def outbound_stock(barcode, quantity):
                 INSERT INTO history (barcode, type, quantity, worker)
                 VALUES (%s, 'OUT', %s, %s)
             """
-            cursor.execute(history_sql, (barcode, quantity, "operator"))
+
+            worker = session.get("username","unknown")
+            cursor.execute(history_sql, (barcode, quantity, worker))
 
             conn.commit()
 

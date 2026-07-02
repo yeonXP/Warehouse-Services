@@ -4,13 +4,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 로그인한 사용자 표시
     const username = localStorage.getItem("username");
+    const fullName = localStorage.getItem("full_name");
+    const role = localStorage.getItem("role");
 
     const currentUser = document.getElementById("current-user");
+    const sidebarFullName = document.getElementById("sidebar-full-name");
+    const sidebarRole = document.getElementById("sidebar-role");
 
-    if (username && currentUser) {
-        currentUser.innerText = username;
+    if (currentUser) {
+	currentUser.innerText = fullName || username || "Guest";
     }
 
+    if (sidebarFullName) {
+	sidebarFullName.innerText = fullName || username || "Guest";
+    }
+
+    if (sidebarRole) {
+	sidebarRole.innerText = role || "-";
+    }
+    
     // 로그인 후 Welcome Toast 표시
     const toastData = localStorage.getItem("toast");
 
